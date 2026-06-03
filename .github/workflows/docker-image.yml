@@ -1,0 +1,13 @@
+- name: Build and Export Docker Image
+  uses: docker/build-push-action@v5
+  with:
+    context: .
+    push: false  # 关键：设置为 false，不推送到远程仓库
+    tags: camofox-browser:latest
+    outputs: type=docker,dest=/tmp/camofox-image.tar  # 导出为 tar 文件
+
+- name: Upload Artifact
+  uses: actions/upload-artifact@v4
+  with:
+    name: camofox-docker-image
+    path: /tmp/camofox-image.tar
